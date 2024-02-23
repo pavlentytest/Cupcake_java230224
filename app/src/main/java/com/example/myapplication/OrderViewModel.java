@@ -5,7 +5,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 public class OrderViewModel extends ViewModel {
 
@@ -18,6 +23,16 @@ public class OrderViewModel extends ViewModel {
 
     private MutableLiveData<String> _flavor = new MutableLiveData<>("");
     public LiveData<String> flavor = _flavor;
+
+
+    private MutableLiveData<String> _date = new MutableLiveData<>("");
+    public LiveData<String> date = _date;
+
+    public List<String> dateOptions = getPickupDates();
+
+    public void setDate(String d) {
+        _date.setValue(d);
+    }
 
     public void setFlavor(String f) {
        _flavor.setValue(f);
@@ -33,6 +48,13 @@ public class OrderViewModel extends ViewModel {
     }
 
     public List<String> getPickupDates() {
-
+        ArrayList<String> options = new ArrayList<>();
+        SimpleDateFormat formatter = new SimpleDateFormat("E MMM d", Locale.getDefault());
+        Calendar calendar = new GregorianCalendar();
+        for(int i=0; i<4; i++) {
+            options.add(formatter.format(calendar.getTime()));
+            calendar.add(Calendar.DATE,1);
+        }
+        return options;
     }
 }

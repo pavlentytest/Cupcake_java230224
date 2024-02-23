@@ -35,7 +35,7 @@ public class FlavorFragment extends Fragment {
         binding.nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(requireView()).navigate(R.id.action_flavorFragment_to_pickupFragment);
+                Navigation.findNavController(requireView()).navigate(R.id.action_flavorFragment_to_pickupFragment,);
             }
         });
     }
